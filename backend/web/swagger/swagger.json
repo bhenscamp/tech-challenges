@@ -21,12 +21,60 @@
                             "application/json": {
                                 "schema": {
                                     "description": "survey",
-                                    "type": "string"
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Survey"
+                                    }
                                 }
                             }
                         }
                     }
                 }
+            }
+        },
+        "/surveys/{code}": {
+            "get": {
+                "operationId": "IDW\\Server\\Controller\\SurveyController::Get",
+                "parameters": [
+                    {
+                        "name": "code",
+                        "in": "path",
+                        "description": "code of survey",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "a survey identified by code",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Survey"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Survey": {
+                "properties": {
+                    "name": {
+                        "description": "survey's name",
+                        "type": "string"
+                    },
+                    "code": {
+                        "description": "ID",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
             }
         }
     }

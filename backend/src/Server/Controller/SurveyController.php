@@ -1,6 +1,6 @@
 <?php
 
-namespace IDW\Server\Controller;
+namespace IDW\JOBINTERVIEW\Server\Controller;
 
 use OpenApi\Annotations as OA;
 
@@ -13,13 +13,35 @@ class SurveyController
      *          response="200",
      *          description="list of surveys",
      *          @OA\JsonContent(
-     *              type="string",
-     *              description="survey"
+     *              type="array",
+     *              description="survey",
+     *              @OA\Items(ref="#/components/schemas/Survey")
      *          )
      *      )
      * )
      */
     public function index(){
+        
+    }
+
+    /**
+     * @OA\Get(
+     *      path="/surveys/{code}",
+     *      @OA\Parameter(
+     *          name="code",
+     *          in="path",
+     *          description="code of survey",
+     *          required=true,
+     *          @OA\Schema(type="string")
+     *      ),
+     *      @OA\Response(
+     *          response="200",
+     *          description="a survey identified by code",
+     *          @OA\JsonContent(ref="#/components/schemas/Survey")
+     *      )
+     * )
+     */
+    public function Get(){
         
     }
 }
