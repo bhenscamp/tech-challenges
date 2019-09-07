@@ -9,5 +9,25 @@
             "url": "http://localhost:8080/api/v1",
             "description": "api for IDW backend interview"
         }
-    ]
+    ],
+    "paths": {
+        "/surveys": {
+            "get": {
+                "operationId": "IDW\\Server\\Controller\\SurveyController::index",
+                "responses": {
+                    "200": {
+                        "description": "list of surveys",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "description": "survey",
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
