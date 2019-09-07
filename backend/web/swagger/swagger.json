@@ -13,7 +13,7 @@
     "paths": {
         "/surveys": {
             "get": {
-                "operationId": "IDW\\Server\\Controller\\SurveyController::index",
+                "operationId": "IDW\\JOBINTERVIEW\\Server\\Controller\\SurveyController::index",
                 "responses": {
                     "200": {
                         "description": "list of surveys",
@@ -34,7 +34,7 @@
         },
         "/surveys/{code}": {
             "get": {
-                "operationId": "IDW\\Server\\Controller\\SurveyController::Get",
+                "operationId": "IDW\\JOBINTERVIEW\\Server\\Controller\\SurveyController::Get",
                 "parameters": [
                     {
                         "name": "code",
@@ -56,6 +56,9 @@
                                 }
                             }
                         }
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/NotFound"
                     }
                 }
             }
@@ -64,6 +67,7 @@
     "components": {
         "schemas": {
             "Survey": {
+                "description": "Survey",
                 "properties": {
                     "name": {
                         "description": "survey's name",
@@ -75,6 +79,24 @@
                     }
                 },
                 "type": "object"
+            }
+        },
+        "responses": {
+            "NotFound": {
+                "description": "Resource not found",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "example": "survey not found"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
             }
         }
     }

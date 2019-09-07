@@ -20,7 +20,7 @@ class SurveyController
      *      )
      * )
      */
-    public function index(){
+    public function listSurvey(){
         
     }
 
@@ -38,10 +38,14 @@ class SurveyController
      *          response="200",
      *          description="a survey identified by code",
      *          @OA\JsonContent(ref="#/components/schemas/Survey")
-     *      )
+     *      ),
+     *      @OA\Response(
+     *          response="404",
+     *          ref="#/components/responses/NotFound"
+     *      ),
      * )
      */
-    public function Get(){
+    public function getSurvey($code){
         
     }
 }

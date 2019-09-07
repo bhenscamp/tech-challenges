@@ -2,21 +2,14 @@
 
 namespace IDW\JOBINTERVIEW\Server\Entity;
 
-use OpenApi\Annotations as OA;
-
-/**
- * @OA\Schema()
- */
 class Survey
 {
     /**
-     * @OA\Property(type="string", description="survey's name")
      * @var string
      */
     protected $name;
 
     /**
-     * @OA\Property(type="string", description="ID")
      * @var string
      */
     protected $code;
