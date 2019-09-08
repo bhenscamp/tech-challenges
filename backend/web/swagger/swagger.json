@@ -86,7 +86,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/SurveyInfo"
+                                    "$ref": "#/components/schemas/SurveyAggregate"
                                 }
                             }
                         }
@@ -149,6 +149,29 @@
                     "code": {
                         "description": "ID",
                         "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "SurveyAggregate": {
+                "description": "Surveys with aggregated answers",
+                "properties": {
+                    "name": {
+                        "description": "survey's name",
+                        "type": "string"
+                    },
+                    "code": {
+                        "description": "ID",
+                        "type": "string"
+                    },
+                    "number": {
+                        "description": "number of answers",
+                        "type": "integer"
+                    },
+                    "aggregates": {
+                        "description": "aggregated answer",
+                        "type": "array",
+                        "items": {}
                     }
                 },
                 "type": "object"

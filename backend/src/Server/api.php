@@ -20,6 +20,9 @@ $app['debug'] = true;
 ErrorHandler::register();
 ExceptionHandler::register();
 
+$base_route = 'api/';
+$api_version = 'v1';
+
 $app->after(function (Request $request, Response $response) {
     $response->headers->set('Access-Control-Allow-Origin', '*');
 });
@@ -27,17 +30,17 @@ $app->get('/', function () use ($app) {
     return 'Server OK';
 });
 
-$app->get('/surveys', function () use ($app){
+$app->get('/' . $base_route . $api_version . '/surveys', function () use ($app){
     $controller = new SurveyController();
     return $controller->listSurvey();
 });
 
-$app->get('/surveys/{code}', function ($code) use ($app){
+$app->get('/' . $base_route . $api_version . '/surveys/{code}', function ($code) use ($app){
     $controller = new SurveyController();
     return $controller->getSurvey($code);
 });
 
-$app->get('/surveys/{code}/aggregate', function ($code) use ($app){
+$app->get('/' . $base_route . $api_version . '/surveys/{code}/aggregate', function ($code) use ($app){
     $controller = new SurveyController();
     return $controller->getAggregatedSurvey($code);
 });

@@ -94,7 +94,7 @@ class SurveyController
      *      @OA\Response(
      *          response="200",
      *          description="survey with aggregate answers",
-     *          @OA\JsonContent(ref="#/components/schemas/SurveyInfo")
+     *          @OA\JsonContent(ref="#/components/schemas/SurveyAggregate")
      *      ),
      *      @OA\Response(
      *          response="404",

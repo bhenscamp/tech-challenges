@@ -10,7 +10,7 @@ use OpenApi\Annotations as OA;
  * )
  */
 
- /**
+/**
  * response
  */
 /**
@@ -35,3 +35,4 @@ use OpenApi\Annotations as OA;
  *   default="qcm"
  * )
  */
+

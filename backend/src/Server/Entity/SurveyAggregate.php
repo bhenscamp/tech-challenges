@@ -2,6 +2,18 @@
 
 namespace IWD\JOBINTERVIEW\Server\Entity;
 
+use OpenApi\Annotations as OA;
+
+/**
+ * @OA\Schema(
+ *      schema="SurveyAggregate",
+ *      description="Surveys with aggregated answers",
+ *      @OA\Property(type="string", property="name", description="survey's name"),
+ *      @OA\Property(type="string", property="code", description="ID"),
+ *      @OA\Property(type="integer", property="number", description="number of answers"),
+ *      @OA\Property(type="array", property="aggregates", description="aggregated answer", @OA\Items()),
+ * )
+ */
 class SurveyAggregate
 {
     /**
