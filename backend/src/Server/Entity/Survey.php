@@ -1,7 +1,17 @@
 <?php
 
-namespace IDW\JOBINTERVIEW\Server\Entity;
+namespace IWD\JOBINTERVIEW\Server\Entity;
 
+use OpenApi\Annotations as OA;
+
+/**
+ * @OA\Schema(
+ *      schema="Survey",
+ *      description="Survey",
+ *      @OA\Property(type="string", property="name", description="survey's name"),
+ *      @OA\Property(type="string", property="code", description="ID")
+ * )
+ */
 class Survey
 {
     /**
@@ -14,15 +24,6 @@ class Survey
      */
     protected $code;
 
-    /**
-     * @var array
-     */
-    protected $questions;
-
-
-    /**
-     * accessors
-     */
     public function setName($name)
     {
         $this->name = $name;
@@ -42,12 +43,4 @@ class Survey
     {
         return $this->code;
     }
-
-    public function getQuestions(){
-		return $this->questions;
-	}
-
-	public function setQuestions($questions){
-		$this->questions = $questions;
-	}
 }

@@ -13,7 +13,7 @@
     "paths": {
         "/surveys": {
             "get": {
-                "operationId": "IDW\\JOBINTERVIEW\\Server\\Controller\\SurveyController::listSurvey",
+                "operationId": "IWD\\JOBINTERVIEW\\Server\\Controller\\SurveyController::listSurvey",
                 "responses": {
                     "200": {
                         "description": "list of surveys",
@@ -34,7 +34,7 @@
         },
         "/surveys/{code}": {
             "get": {
-                "operationId": "IDW\\JOBINTERVIEW\\Server\\Controller\\SurveyController::getSurvey",
+                "operationId": "IWD\\JOBINTERVIEW\\Server\\Controller\\SurveyController::getSurvey",
                 "parameters": [
                     {
                         "name": "code",
@@ -52,7 +52,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/SurveyDetailed"
+                                    "$ref": "#/components/schemas/SurveyInfo"
                                 }
                             }
                         }
@@ -65,7 +65,7 @@
         },
         "/surveys/{code}/aggregate": {
             "get": {
-                "operationId": "IDW\\JOBINTERVIEW\\Server\\Controller\\SurveyController::getAggregatedSurvey",
+                "operationId": "IWD\\JOBINTERVIEW\\Server\\Controller\\SurveyController::getAggregatedSurvey",
                 "parameters": [
                     {
                         "name": "code",
@@ -83,7 +83,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/SurveyDetailed"
+                                    "$ref": "#/components/schemas/SurveyInfo"
                                 }
                             }
                         }
@@ -150,16 +150,11 @@
                 },
                 "type": "object"
             },
-            "SurveyDetailed": {
+            "SurveyInfo": {
                 "description": "Survey complete information",
                 "properties": {
-                    "name": {
-                        "description": "survey's name",
-                        "type": "string"
-                    },
-                    "code": {
-                        "description": "ID",
-                        "type": "string"
+                    "survey": {
+                        "$ref": "#/components/schemas/Survey"
                     },
                     "questions": {
                         "type": "array",
