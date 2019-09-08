@@ -34,7 +34,7 @@ class SurveyDao
         $this->serializer = new Serializer($normalizers, $encoders);   
     }
 
-    public function findAll()
+    public function retrieveAll()
     {
         foreach ($this->getDirectoryIterator() as $file) {
             $entries[$file->getFilename()] = $this->serializer->deserialize(

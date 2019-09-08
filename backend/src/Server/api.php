@@ -32,6 +32,11 @@ $app->get('/surveys', function () use ($app){
     return $controller->listSurvey();
 });
 
+$app->get('/surveys/{code}', function ($code) use ($app){
+    $controller = new SurveyController();
+    return $controller->getSurvey($code);
+});
+
 $app->run();
 
 return $app;

@@ -61,8 +61,8 @@ class SurveyController
      *      ),
      *      @OA\Response(
      *          response="200",
-     *          description="a survey identified by code",
-     *          @OA\JsonContent(ref="#/components/schemas/SurveyInfo")
+     *          description="a list of surveys identified by code",
+     *          @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/SurveyInfo"))
      *      ),
      *      @OA\Response(
      *          response="404",
@@ -71,7 +71,15 @@ class SurveyController
      * )
      */
     public function getSurvey($code)
-    { }
+    { 
+        $result = [];
+        $data = $this->getDatas();
+        foreach ($data as $key => $surveyInfo) {
+            if($surveyInfo->getSurvey()->getCode() == $code)
+                array_push($result, $surveyInfo);
+        }
+        return $this->serializer->serialize($result, 'json');
+    }
 
     /**
      * @OA\Get(
@@ -95,7 +103,9 @@ class SurveyController
      * )
      */
     public function getAggregatedSurvey($code)
-    { }
+    { 
+        
+    }
 
     /**
      * @return mixed
@@ -104,7 +114,7 @@ class SurveyController
     {
         $directory = new \FilesystemIterator("./data");
         $dao = new SurveyDao($directory);
-        $surveys = $dao->findAll();
+        $surveys = $dao->retrieveAll();
         return $surveys;
     }
 }

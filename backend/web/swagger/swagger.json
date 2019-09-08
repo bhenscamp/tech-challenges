@@ -48,11 +48,14 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "a survey identified by code",
+                        "description": "a list of surveys identified by code",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/SurveyInfo"
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/SurveyInfo"
+                                    }
                                 }
                             }
                         }
