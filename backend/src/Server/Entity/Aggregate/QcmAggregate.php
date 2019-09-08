@@ -2,7 +2,7 @@
 
 namespace IWD\JOBINTERVIEW\Server\Entity\Aggregate;
 
-class QcmAggregate extends AggregateAbstract 
+class QcmAggregate extends AggregateAbstract implements AggregateInterface
 {
     public function __construct($label = "")
     {
@@ -16,18 +16,19 @@ class QcmAggregate extends AggregateAbstract
     /**
      * @param \Question
      */
-    public function aggregateData($question) {
+    public function aggregateData($question)
+    {
         $options = $question->getOptions();
         $answer = $question->getAnswer();
-        if($this->number == 0){
+        if ($this->number == 0) {
             $this->label = $question->getLabel();
         }
-        array_walk($options, function(&$value, $key){
+        array_walk($options, function (&$value, $key) {
             $value = str_replace(" ", "_", $value);
         });
         $tmp = array_combine($options, $answer);
         extract($tmp);
-        foreach ( $options as $option ) {
+        foreach ($options as $option) {
             if (!isset($this->data[$option])) {
                 $this->data[$option]  = 0;
             } else {
@@ -40,17 +41,19 @@ class QcmAggregate extends AggregateAbstract
         $this->number++;
     }
 
-    public function formatAggregate() {
+    public function formatAggregate()
+    {
         $this->aggregate = "";
-        foreach( $this->data as $option => $number ) {
+        foreach ($this->data as $option => $number) {
             $option = str_replace("_", " ", $option);
             $this->aggregate .= ",$number $option ";
         }
         $this->aggregate = substr($this->aggregate, 1);
         $this->aggregate = explode(",", $this->aggregate);
     }
-    
-    public function getAggregate() {
+
+    public function getAggregate()
+    {
         return $this->aggregate;
     }
 }

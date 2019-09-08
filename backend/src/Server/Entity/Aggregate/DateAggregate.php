@@ -2,7 +2,7 @@
 
 namespace IWD\JOBINTERVIEW\Server\Entity\Aggregate;
 
-class DateAggregate extends AggregateAbstract 
+class DateAggregate extends AggregateAbstract implements AggregateInterface
 {
     public function __construct($label = "")
     {

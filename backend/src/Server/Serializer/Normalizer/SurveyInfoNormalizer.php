@@ -5,7 +5,9 @@ namespace IWD\JOBINTERVIEW\Server\Serializer\Normalizer;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
-
+/**
+ * custom normalizer for SurveyInfo class
+ */
 class SurveyInfoNormalizer implements NormalizerInterface
 {
     private $normalizer;

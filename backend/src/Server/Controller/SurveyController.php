@@ -20,11 +20,18 @@ class SurveyController
      */
     protected $serializer;
 
+    /**
+     * @var Array
+     */
+    protected $response;
+
     public function __construct()
     {
         $encoders = array(new JsonEncoder());
         $normalizers = array(new ObjectNormalizer());
         $this->serializer = new Serializer($normalizers, $encoders);
+
+        $this->response = ['code', 'content'];
     }
 
     /**
@@ -48,9 +55,10 @@ class SurveyController
         foreach ($data as $key => $surveyInfo) {
             array_push($result, $surveyInfo->getSurvey());
         }
-
         $surveys = array_unique($result, SORT_REGULAR);
-        return $this->serializer->serialize($surveys, 'json');
+
+        $this->formatResponse($this->serializer->serialize($surveys, 'json'));
+        return $this->response;
     }
 
     /**
@@ -77,8 +85,11 @@ class SurveyController
     public function getSurvey($code)
     {
         $result = $this->getSurveysWithCode($code);
+        if (count($result) == 0 || is_null($result))
+            return $this->notFoundResponse();
 
-        return $this->serializer->serialize($result, 'json');
+        $this->formatResponse($this->serializer->serialize($result, 'json'));
+        return $this->response;
     }
 
     /**
@@ -105,7 +116,9 @@ class SurveyController
     public function getAggregatedSurvey($code)
     {
         $result = $this->getSurveysWithCode($code);
-        
+        if (count($result) == 0 || is_null($result))
+            return $this->notFoundResponse();
+
         $aggregatedSurvey = new SurveyAggregate();
         $aggregatedSurvey->setName($result[0]->getSurvey()->getName());
         $aggregatedSurvey->setCode($result[0]->getSurvey()->getCode());
@@ -135,10 +148,11 @@ class SurveyController
                 }
             }
         }
-        
+
         $aggregatedSurvey->setAggregates($this->aggregatesDecorator($aggregates));
 
-        return $this->serializer->serialize($aggregatedSurvey, 'json');
+        $this->formatResponse($this->serializer->serialize($aggregatedSurvey, 'json'));
+        return $this->response;
     }
 
     /**
@@ -168,6 +182,11 @@ class SurveyController
         return $surveys;
     }
 
+    /**
+     * format aggregate for a more human readibility
+     * @var array
+     * @return array
+     */
     protected function aggregatesDecorator($aggregates)
     {
         $decoratedAggregates = [];
@@ -179,5 +198,24 @@ class SurveyController
             ];
         }
         return $decoratedAggregates;
+    }
+
+    /**
+     * format a 404 status response 
+     */
+    protected function notFoundResponse()
+    {
+        $this->response['code'] = 404;
+        $this->response['content'] = $this->serializer->serialize(['code' => 404, 'message' => 'resource not found'], 'json');
+        return $this->response;
+    }
+
+    /**
+     * format a 200 status response
+     */
+    protected function formatResponse($content)
+    {
+        $this->response['code'] = 200;
+        $this->response['content'] = $content;
     }
 }

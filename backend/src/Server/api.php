@@ -1,11 +1,12 @@
 <?php
+
 declare(strict_types=1);
 
-if (file_exists(ROOT_PATH.'/vendor/autoload.php') === false) {
+if (file_exists(ROOT_PATH . '/vendor/autoload.php') === false) {
     echo "run this command first: composer install";
     exit();
 }
-require_once ROOT_PATH.'/vendor/autoload.php';
+require_once ROOT_PATH . '/vendor/autoload.php';
 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,19 +31,31 @@ $app->get('/', function () use ($app) {
     return 'Server OK';
 });
 
-$app->get('/' . $base_route . $api_version . '/surveys', function () use ($app){
+$app->get('/' . $base_route . $api_version . '/surveys', function () use ($app) {
     $controller = new SurveyController();
-    return $controller->listSurvey();
+    $response = $controller->listSurvey();
+    if ($response['code'] == 404)
+        return new Response($response['content'], 404);
+
+    return $response['content'];
 });
 
-$app->get('/' . $base_route . $api_version . '/surveys/{code}', function ($code) use ($app){
+$app->get('/' . $base_route . $api_version . '/surveys/{code}', function ($code) use ($app) {
     $controller = new SurveyController();
-    return $controller->getSurvey($code);
+    $response = $controller->getSurvey($code);
+    if ($response['code'] == 404)
+        return new Response($response['content'], 404);
+
+    return $response['content'];
 });
 
-$app->get('/' . $base_route . $api_version . '/surveys/{code}/aggregate', function ($code) use ($app){
+$app->get('/' . $base_route . $api_version . '/surveys/{code}/aggregate', function ($code) use ($app) {
     $controller = new SurveyController();
-    return $controller->getAggregatedSurvey($code);
+    $response = $controller->getAggregatedSurvey($code);
+    if ($response['code'] == 404)
+        return new Response($response['content'], 404);
+
+    return $response['content'];
 });
 
 $app->run();

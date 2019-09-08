@@ -10,6 +10,9 @@ use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
+/**
+ * custom denormalizer for SurveyInfo class
+ */
 class SurveyInfoDenormalizer implements DenormalizerInterface
 { 
     public function denormalize($data, $type, $format = null, array $context = [])

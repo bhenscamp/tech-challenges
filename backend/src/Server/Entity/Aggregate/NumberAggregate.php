@@ -2,7 +2,7 @@
 
 namespace IWD\JOBINTERVIEW\Server\Entity\Aggregate;
 
-class NumberAggregate extends AggregateAbstract
+class NumberAggregate extends AggregateAbstract implements AggregateInterface
 {
     public function __construct($label = "")
     {
@@ -16,7 +16,7 @@ class NumberAggregate extends AggregateAbstract
     public function aggregateData($question)
     {
         $answer = $question->getAnswer();
-        if($this->number == 0){
+        if ($this->number == 0) {
             $this->label = $question->getLabel();
         }
         array_push($this->data, $answer);
