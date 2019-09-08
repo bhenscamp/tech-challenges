@@ -1,10 +1,10 @@
 <?php
 
-namespace IWD\JOBINTERVIEW\Server\Entity;
+namespace IWD\JOBINTERVIEW\Server\Entity\Aggregate;
 
 class QcmAggregate extends AggregateAbstract 
 {
-    public function __construct($label)
+    public function __construct($label = "")
     {
         $this->type = "qcm";
         $this->label = $label;
@@ -13,7 +13,15 @@ class QcmAggregate extends AggregateAbstract
         $this->aggregate = [];
     }
 
-    public function aggregateData($options, $answer ) {
+    /**
+     * @param \Question
+     */
+    public function aggregateData($question) {
+        $options = $question->getOptions();
+        $answer = $question->getAnswer();
+        if($this->number == 0){
+            $this->label = $question->getLabel();
+        }
         array_walk($options, function(&$value, $key){
             $value = str_replace(" ", "_", $value);
         });
@@ -29,6 +37,7 @@ class QcmAggregate extends AggregateAbstract
                 $this->data[$option] += 1;
             }
         }
+        $this->number++;
     }
 
     public function formatAggregate() {
@@ -42,6 +51,6 @@ class QcmAggregate extends AggregateAbstract
     }
     
     public function getAggregate() {
-        return $this;
+        return $this->aggregate;
     }
 }

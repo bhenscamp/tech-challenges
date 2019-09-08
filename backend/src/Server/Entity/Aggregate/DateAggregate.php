@@ -1,10 +1,10 @@
 <?php
 
-namespace IWD\JOBINTERVIEW\Server\Entity;
+namespace IWD\JOBINTERVIEW\Server\Entity\Aggregate;
 
 class DateAggregate extends AggregateAbstract 
 {
-    public function __construct($label)
+    public function __construct($label = "")
     {
         $this->type = "date";
         $this->label = $label;
@@ -13,7 +13,11 @@ class DateAggregate extends AggregateAbstract
         $this->aggregate = [];
     }
 
-    public function aggregateData($answer) {
+    public function aggregateData($question) {
+        $answer = $question->getAnswer();
+        if($this->number == 0){
+            $this->label = $question->getLabel();
+        }
         array_push($this->data, $answer);
         $this->number++;
     }
@@ -23,6 +27,6 @@ class DateAggregate extends AggregateAbstract
     }
 
     public function getAggregate() {
-        return $this;
+        return $this->aggregate;
     }
 }

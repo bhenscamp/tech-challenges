@@ -1,6 +1,6 @@
 <?php
 
-namespace IWD\JOBINTERVIEW\Server\Entity;
+namespace IWD\JOBINTERVIEW\Server\Entity\Aggregate;
 
 class AggregateAbstract
 {

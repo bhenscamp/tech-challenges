@@ -37,6 +37,11 @@ $app->get('/surveys/{code}', function ($code) use ($app){
     return $controller->getSurvey($code);
 });
 
+$app->get('/surveys/{code}/aggregate', function ($code) use ($app){
+    $controller = new SurveyController();
+    return $controller->getAggregatedSurvey($code);
+});
+
 $app->run();
 
 return $app;
