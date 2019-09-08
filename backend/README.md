@@ -1,5 +1,18 @@
 # IWD backend challenge
 
+## Access results
+Server is available at :
+    #Go to http://localhost:8080/api/v1
+    available routes are :
+        /surveys for Stage 1
+        /surveys/{code}/aggregate for stage 2
+        /surveys/{code} for bonus
+
+Api documentation is available at :
+    #Go to http://localhost:8080/swagger/index.html
+    swagger is a tool to document api but also a client to test it
+
+
 ## Setup
 
 To avoid losing time, we have setup a Silex boilerplate to handle HTTP request/response.

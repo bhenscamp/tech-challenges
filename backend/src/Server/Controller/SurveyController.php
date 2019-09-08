@@ -11,7 +11,6 @@ use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use OpenApi\Annotations as OA;
-use PHPUnit\Util\TestDox\ResultPrinter;
 
 class SurveyController
 {
