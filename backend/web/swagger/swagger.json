@@ -13,7 +13,7 @@
     "paths": {
         "/surveys": {
             "get": {
-                "operationId": "IDW\\JOBINTERVIEW\\Server\\Controller\\SurveyController::index",
+                "operationId": "IDW\\JOBINTERVIEW\\Server\\Controller\\SurveyController::listSurvey",
                 "responses": {
                     "200": {
                         "description": "list of surveys",
@@ -34,7 +34,7 @@
         },
         "/surveys/{code}": {
             "get": {
-                "operationId": "IDW\\JOBINTERVIEW\\Server\\Controller\\SurveyController::Get",
+                "operationId": "IDW\\JOBINTERVIEW\\Server\\Controller\\SurveyController::getSurvey",
                 "parameters": [
                     {
                         "name": "code",
@@ -52,7 +52,38 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Survey"
+                                    "$ref": "#/components/schemas/SurveyDetailed"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/NotFound"
+                    }
+                }
+            }
+        },
+        "/surveys/{code}/aggregate": {
+            "get": {
+                "operationId": "IDW\\JOBINTERVIEW\\Server\\Controller\\SurveyController::getAggregatedSurvey",
+                "parameters": [
+                    {
+                        "name": "code",
+                        "in": "path",
+                        "description": "code of survey",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "survey with aggregate answers",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SurveyDetailed"
                                 }
                             }
                         }
@@ -66,6 +97,45 @@
     },
     "components": {
         "schemas": {
+            "Question": {
+                "description": "question",
+                "properties": {
+                    "type": {
+                        "$ref": "#/components/schemas/question_type"
+                    },
+                    "label": {
+                        "description": "the question",
+                        "type": "string"
+                    },
+                    "options": {
+                        "description": "choices for qcm question",
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "nullable": true
+                    },
+                    "answer": {
+                        "description": "answer could be an array for qcm, an integer or a date",
+                        "oneOf": [
+                            {
+                                "type": "string",
+                                "format": "date-time"
+                            },
+                            {
+                                "type": "integer"
+                            },
+                            {
+                                "type": "array",
+                                "items": {
+                                    "type": "boolean"
+                                }
+                            }
+                        ]
+                    }
+                },
+                "type": "object"
+            },
             "Survey": {
                 "description": "Survey",
                 "properties": {
@@ -79,6 +149,36 @@
                     }
                 },
                 "type": "object"
+            },
+            "SurveyDetailed": {
+                "description": "Survey complete information",
+                "properties": {
+                    "name": {
+                        "description": "survey's name",
+                        "type": "string"
+                    },
+                    "code": {
+                        "description": "ID",
+                        "type": "string"
+                    },
+                    "questions": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Question"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "question_type": {
+                "description": "possible types of question",
+                "type": "string",
+                "default": "qcm",
+                "enum": [
+                    "qcm",
+                    "numeric",
+                    "date"
+                ]
             }
         },
         "responses": {

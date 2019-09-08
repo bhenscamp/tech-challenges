@@ -9,4 +9,4 @@ if (php_sapi_name() === 'cli-server' && is_file($filename)) {
     return false;
 }
 
-require_once 'src/Server/app.php';
+require_once 'src/Server/api.php';

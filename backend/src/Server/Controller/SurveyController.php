@@ -37,7 +37,7 @@ class SurveyController
      *      @OA\Response(
      *          response="200",
      *          description="a survey identified by code",
-     *          @OA\JsonContent(ref="#/components/schemas/Survey")
+     *          @OA\JsonContent(ref="#/components/schemas/SurveyDetailed")
      *      ),
      *      @OA\Response(
      *          response="404",
@@ -47,5 +47,30 @@ class SurveyController
      */
     public function getSurvey($code){
         
+    }
+
+    /**
+     * @OA\Get(
+     *      path="/surveys/{code}/aggregate",
+     *      @OA\Parameter(
+     *          name="code",
+     *          in="path",
+     *          description="code of survey",
+     *          required=true,
+     *          @OA\schema(type="string")
+     *      ),
+     *      @OA\Response(
+     *          response="200",
+     *          description="survey with aggregate answers",
+     *          @OA\JsonContent(ref="#/components/schemas/SurveyDetailed")
+     *      ),
+     *      @OA\Response(
+     *          response="404",
+     *          ref="#/components/responses/NotFound"
+     *      )
+     * )
+     */
+    public function getAggregatedSurvey($code){
+
     }
 }

@@ -9,3 +9,29 @@ use OpenApi\Annotations as OA;
  *      description="api for IDW backend interview"
  * )
  */
+
+ /**
+ * response
+ */
+/**
+ * @OA\Response(
+ *      response="NotFound",
+ *      description="Resource not found",
+ *      @OA\JsonContent(
+ *          @OA\Property(property="message", type="string", example="survey not found")
+ *      )
+ * )
+ */
+
+/**
+ * enum
+ */
+/**
+ * @OA\Schema(
+ *   schema="question_type",
+ *   type="string",
+ *   description="possible types of question",
+ *   enum={"qcm", "numeric", "date"},
+ *   default="qcm"
+ * )
+ */

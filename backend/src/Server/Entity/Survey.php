@@ -14,6 +14,15 @@ class Survey
      */
     protected $code;
 
+    /**
+     * @var array
+     */
+    protected $questions;
+
+
+    /**
+     * accessors
+     */
     public function setName($name)
     {
         $this->name = $name;
@@ -33,4 +42,12 @@ class Survey
     {
         return $this->code;
     }
+
+    public function getQuestions(){
+		return $this->questions;
+	}
+
+	public function setQuestions($questions){
+		$this->questions = $questions;
+	}
 }

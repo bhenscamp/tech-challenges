@@ -14,6 +14,16 @@ use OpenApi\Annotations as OA;
  *      @OA\Property(type="string", property="code", description="ID")
  * )
  */
+/**
+ * @OA\Schema(
+ *      schema="SurveyDetailed",
+ *      description="Survey complete information",
+ *      @OA\Property(type="string", property="name", description="survey's name"),
+ *      @OA\Property(type="string", property="code", description="ID"),
+ *      @OA\Property(type="array", property="questions", @OA\Items(ref="#/components/schemas/Question"))
+ * )
+ */
+
 class SurveyNormalizer implements NormalizerInterface
 {
     private $normalizer;
